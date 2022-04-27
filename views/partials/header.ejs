@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection</title>
+</head>
+
+<body>
+    <header>
+        <h1>
+            Life Line
+        </h1>
+        
+    </header>
+    <br>
+    <!--We can connect the different pages to this navigation bar, I would use href however I am sure theres some ejs stuff we could do-->
+    <nav>
+        <a href ="/">Home</a>
+        ||
+		<a href="/exercises/allExercises">Fitness</a> 
+        ||
+		<a href="/signup">Sign up</a>
+        ||
+        <a href="/profile">Profile</a>
+        ||
+        <a href="/login">Login</a>
+        <a href="/logout">Logout</a>
+        <%successMessages.forEach(message=>{%>
+            <div class="successMessages">
+                <%=message%>
+            </div>
+            <% }) %>
+            <%errorMessages.forEach(message=>{%>
+                <div class="errorMessages">
+                    <%=message%>
+                </div>
+                <% }) %>
+	</nav>
+    <style>
+        .errorMessages{
+    position:absolute;
+    top:170px;
+    background-color: red;
+    color:white;
+    text-align: center;
+    width:100%;
+}
+.successMessages{
+    position:absolute;
+    top:170px;
+    background-color: green;
+    color:white;
+    text-align: center;
+    width:100%;
+}
+    </style>
