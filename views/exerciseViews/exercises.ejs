@@ -8,7 +8,11 @@
     <label for = "target">Target Muscle:</label>
     <input type = "text" name="target" > 
 
-    <button>Submit</button>
+    <button>Submit Filter</button>
+</form>
+<form class = "filterForm" method = "POST" action = "/exercises/allExercises/removeFilter">
+    <button>Clear Filter</button>
+
 </form>
 <h1>Exercises!</h1>
 <% if(filteredExerciseData.length == 0){ %>
@@ -21,7 +25,7 @@
         <img class = "image" src = "<%= data.gifUrl %>" height="150" width="150">
         <h3> Target Muscle: <%= data.target %></h3>
         <form>
-        <button type = "submit" formmethod="POST" name = "userData" value ="<%=data.id%>" formaction="/exercises/userExercises">Button</button>
+        <button type = "submit" formmethod="POST" name = "userData" value ="<%=data.id%>" formaction="/exercises/userExercises">Add workout to Profile Page!</button>
     </form>
     </div>
     

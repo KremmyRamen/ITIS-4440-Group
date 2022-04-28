@@ -79,6 +79,7 @@ exports.exercise = (req, res, next) => {
         }
         console.log(apiExerciseData)
         if(filteredExerciseData.length != 0){
+            req.flash("Success","You have successfully filtered the exercise data!")
             res.render("./exerciseViews/exercises", { filteredExerciseData, apiExerciseData })
         }
         else{
@@ -94,12 +95,18 @@ exports.filterExercise = (req, res, next) => {
     filterBody = req.body;
     res.redirect("/exercises/allExercises")
 }
+exports.removeFilter = (req, res, next) => {
+    filteredExerciseData = []
+    req.flash("Success","Successfully removed filter")
+    res.redirect("/exercises/allExercises")
+}
 exports.userExercises = (req, res, next) => {
     exports.userExercise = (data)=>{
         let exercise = new exerciseModel(data);
         exercise.userId = req.session.user
         exercise.save()
         .then(exercise=>{
+            req.flash("Success", "You have successfully added a workout to your Profile Page!")
             res.redirect("/profile")
         })
         .catch(err=>console.log(err));

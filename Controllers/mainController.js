@@ -38,8 +38,9 @@ exports.profile = (req, res, next) => {
             if (user) {
                 user.comparePassword(password)
                     .then(result => {
+                        console.log(user._id)
                         if (result) {
-                            req.session.user = user._id;
+                            req.session.user = {_id: user._id, name: user.firstName};
                             req.flash("Success", "You have successfully logged in")
                             res.redirect("/profile");
                         }
@@ -69,6 +70,7 @@ exports.removeExercise = (req, res, next)=>{
         console.log("result")
         console.log(result)
         if(result){
+            req.flash("Success","You have successfully removed a workout from the Profile Page!")
             res.redirect("/profile")
         }
     })

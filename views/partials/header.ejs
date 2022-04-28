@@ -18,16 +18,20 @@
     <br>
     <!--We can connect the different pages to this navigation bar, I would use href however I am sure theres some ejs stuff we could do-->
     <nav>
-        <a href ="/">Home</a>
-        ||
-		<a href="/exercises/allExercises">Fitness</a> 
-        ||
-		<a href="/signup">Sign up</a>
-        ||
-        <a href="/profile">Profile</a>
-        ||
-        <a href="/login">Login</a>
-        <a href="/logout">Logout</a>
+        <%if(!user){%>
+            <a href ="/">Home</a>
+            <a href="/exercises/allExercises">Fitness</a> 
+            <a href="/signup">Sign up</a>
+            <a href="/login">Login</a>   
+        <%}
+        else{%>
+            <a href ="/">Home</a>
+            <a href="/profile">Profile</a>
+            <a href="/exercises/allExercises">Fitness</a> 
+
+            <a href="/logout">Logout</a>
+            <p>Welcome <%= user.name%></p>
+        <%}%>
         <%successMessages.forEach(message=>{%>
             <div class="successMessages">
                 <%=message%>
