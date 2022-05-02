@@ -1,12 +1,14 @@
 let ApiData = require("../Models/APIData");
 let exerciseModel = require("../Models/exercise");
-
+let api = require("../Models/dietApi")
+let apiRecipe = require("../Models/recipeSearchApi")
 let exerciseData = [];
 let apiExerciseData = [];
 let filterBody;
+let userChoosenFood;
 let filteredExerciseData = [];
 let filtered = false;
-exports.GetData = function (apiInfo) {
+exports.GetData = function (apiInfo, type) {
     if (apiInfo.type == "listTargetMuscles") {
         this.RetreiveTargetMuscleData(apiInfo)
     }
@@ -22,6 +24,18 @@ exports.GetData = function (apiInfo) {
     else if (apiInfo.type == "userExercise") {
         this.userExercise(apiInfo)
     }
+    else if (apiInfo.type == "recipeByName") {
+        console.log("yes!")
+        this.recipeName(apiInfo)
+    }
+    else if (type == "choosenRecipe") {
+        console.log("yes")
+        this.userRecipe(apiInfo)
+    }
+
+    else if (apiInfo[20].type == "recipeCategory") {
+        this.categoryRecipe(apiInfo)
+    }
 }
 //Retreive data by muscle
 exports.index = (req, res, next) => {
@@ -32,6 +46,43 @@ exports.index = (req, res, next) => {
         .then(data => {
         })
         .catch(err => console.log(err));
+}
+exports.api = (req, res, next)=>{
+    api.recipeCategory()
+    
+    exports.categoryRecipe = (data)=>{
+        res.render("./exerciseViews/recipes", {data})
+    }
+    
+}
+exports.choosenRecipes = (req, res, next)=>{
+    res.render("./exerciseViews/recipeName")
+    
+}
+exports.userChoosenRecipe = (req, res, next)=>{
+    userChoosenFood = req.body.food
+    res.redirect("/exercises/recipeByName")
+}
+exports.recipeByName = (req, res, next)=>{
+    console.log(userChoosenFood)
+    apiRecipe.recipe(userChoosenFood)
+    exports.recipeName = (data)=>{
+        userChoosenFood=" "
+        data.hits.forEach(recipe=>{
+            //console.log(recipe)
+        })
+        res.render("./exerciseViews/userChoosenRecipe",{data})
+    }
+    
+}
+exports.recipe = (req, res, next)=>{
+    api.recipe(req.body.recipe)
+    exports.userRecipe = (data)=>{
+        let category = data[0].category
+        console.log(category)
+        res.render("./exerciseViews/userRecipes", {data,category})
+    }
+    
 }
 exports.exercise = (req, res, next) => {
     exports.RetreiveListAllExercises = (data) => {
