@@ -1,6 +1,5 @@
 let User = require("../Models/user")
 let exercises = require("../Models/exercise")
-
 exports.index = (req, res, next)=>{
     res.render("./exerciseViews/index")
 }

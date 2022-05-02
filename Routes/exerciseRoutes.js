@@ -4,6 +4,12 @@ let controller = require("../Controllers/exerciseController");
 const router = express.Router();
 
 router.get("/",controller.index)
+router.get("/recipe",controller.api)
+router.get("/choosenRecipes",controller.choosenRecipes)
+router.post("/userChoosenRecipe",controller.userChoosenRecipe)
+
+router.get("/recipeByName",controller.recipeByName)
+router.post("/userRecipe",controller.recipe)
 router.get("/allExercises",controller.exercise)
 router.post("/allExercises",controller.filterExercise)
 router.post("/allExercises/removeFilter",controller.removeFilter)
