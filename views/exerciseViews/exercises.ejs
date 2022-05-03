@@ -25,7 +25,7 @@
         <img class = "image" src = "<%= data.gifUrl %>" height="150" width="150">
         <h3> Target Muscle: <%= data.target %></h3>
         <form>
-        <button type = "submit" formmethod="POST" name = "userData" value ="<%=data.id%>" formaction="/exercises/userExercises">Add workout to Profile Page!</button>
+        <button class ="workoutButton"type = "submit" formmethod="POST" name = "userData" value ="<%=data.id%>" formaction="/exercises/userExercises">Add workout to Profile Page!</button>
     </form>
     </div>
     
@@ -46,6 +46,21 @@
 <% } %>
 <%- include('../partials/footer.ejs')%>
 <style>
+    .workoutButton{
+        background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  
+}
+    
 .apiData{
     display: inline-block;
     vertical-align: middle;

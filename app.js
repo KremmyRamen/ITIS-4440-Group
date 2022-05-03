@@ -3,7 +3,7 @@ let morgan = require("morgan");
 let methodOverride = require("method-override");
 let exerciseRoutes = require("./Routes/exerciseRoutes");
 let mainRoutes = require("./Routes/mainRoutes");
-let port = 8080;
+let port = 3000;
 let host = "localhost";
 let mongoose = require("mongoose");
 const session = require("express-session");
@@ -15,7 +15,7 @@ const app = express();
 app.set("view engine","ejs");
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({extended:true}))
-app.use(express.static("public"))
+app.use(express.static("Public"))
 app.use(morgan("tiny"));
 
 mongoose.connect("mongodb://localhost:27017/Exercise", { useNewUrlParser: true,  useUnifiedTopology: true })
@@ -40,7 +40,7 @@ app.use((req, res, next)=>{
     res.locals.users = req.session.hostName|| null;
     res.locals.successMessages= req.flash("Success");
     res.locals.errorMessages= req.flash("Error");
-    console.log(res.locals.user)
+    //console.log(res.locals.user)
     next();
 })
 

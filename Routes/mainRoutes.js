@@ -10,5 +10,7 @@ router.post("/login",controller.userLogin)
 router.get("/profile",controller.userProfile)
 router.post("/profile",controller.profile)
 router.post("/removeExercise",controller.removeExercise)
+router.post("/removeRecipe",controller.removeRecipe)
+router.post("/removeCategoryRecipe",controller.removeCategoryRecipe)
 router.get("/logout",controller.logout)
 module.exports = router;

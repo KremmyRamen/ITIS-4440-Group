@@ -1,5 +1,10 @@
 let User = require("../Models/user")
+let Recipe = require("../Models/recipeByFood")
+let categoryModel = require("../Models/recipeCategoryModel")
+let postModel = require("../Models/postModel")
+
 let exercises = require("../Models/exercise")
+const { recipe } = require("./exerciseController")
 exports.index = (req, res, next)=>{
     res.render("./exerciseViews/index")
 }
@@ -57,23 +62,50 @@ exports.profile = (req, res, next) => {
         .catch(err => next(err));
 }
 exports.userProfile = (req, res, next)=>{
-    exercises.find({userId: req.session.user})
-                            .then(exercises=>{
-                                res.render("./mainViews/profile",{exercises})
-                            })
-                            .catch(err=>console.log(err))
+    console.log(req.session.user)
+    Promise.all([
+        exercises.find({ userId: req.session.user._id }),
+        Recipe.find({ userId: req.session.user._id }),
+        categoryModel.find({userId: req.session.user._id})
+    ])
+    .then(results=>{
+        let [exercises, recipes, categoryRecipes] = results;
+        console.log(categoryRecipes)
+        res.render("./mainViews/profile",{exercises,recipes, categoryRecipes})
+
+    })
+    
 }
 exports.removeExercise = (req, res, next)=>{
     exercises.findByIdAndDelete(req.body.exerciseData)
     .then(result=>{
         console.log("result")
-        console.log(result)
+        console.log(result) 
         if(result){
             req.flash("Success","You have successfully removed a workout from the Profile Page!")
             res.redirect("/profile")
         }
     })
     .catch(err=>console.log(err));
+}
+exports.removeRecipe = (req, res, next)=>{
+    console.log(req.body.recipeData)
+    Recipe.findByIdAndDelete(req.body.recipeData)
+    .then(data=>{
+        req.flash("Success","You have successfully removed a recipe from the Profile Page!")
+
+        res.redirect("/profile")
+    })
+    .catch(err=>console.log(err))
+}
+exports.removeCategoryRecipe = (req, res, next)=>{
+    categoryModel.findByIdAndDelete(req.body.recipeData)
+    .then(data=>{
+        req.flash("Success","You have successfully removed a recipe from the Profile Page!")
+
+        res.redirect("/profile")
+    })
+    .catch(err=>console.log(err))
 }
 exports.logout = (req, res, next)=>{
     req.session.destroy(err => {
