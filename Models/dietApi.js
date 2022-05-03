@@ -20,6 +20,9 @@ module.exports = {
         //data.push({"type":"recipeCategory"})
         let type = "recipeCategory"
         controller.GetData(data, type)
+        //console.log(data)
+        data.push({"type":"recipeCategory"})
+        controller.GetData(data)
     })
 },
 recipe: function (category) {
